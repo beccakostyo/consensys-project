@@ -27,4 +27,4 @@ The things you need to install to run this project on your local machine.
    - ```truffle compile```
    - ```truffle migrate```
    - ```npm run start```
-     - This will start up the front-end on http://localhost:3000. (should auto-open on running the command).   
+     - This will start up the front-end on http://localhost:3000. (should auto-open on running the command) 
