@@ -4,6 +4,7 @@ import getWeb3 from './utils/getWeb3'
 
 // Component imports //
 import TopBar from './components/TopBar/TopBar';
+import Form from './components/Form/Form';
 
 // import './css/oswald.css'
 // import './css/open-sans.css'
@@ -15,7 +16,6 @@ class App extends Component {
     super(props)
 
     this.state = {
-      storageValue: 0,
       web3: null,
       account: '0x0',
       animals: [],
@@ -31,7 +31,6 @@ class App extends Component {
       this.setState({
         web3: results.web3
       })
-      // Instantiate contract once web3 provided.
       this.instantiateContract()
     })
     .catch(() => {
@@ -48,13 +47,7 @@ class App extends Component {
 
     this.state.web3.eth.getAccounts((error, accounts) => {
       petPoll.deployed().then((instance) => {
-        petPollInstance = instance
-
-        return petPollInstance.set(5, {from: accounts[0]})
-      }).then((result) => {
-        return petPollInstance.get.call(accounts[0])
-      }).then((result) => {
-        return this.setState({ storageValue: result.c[0] })
+        this.setState({ account: accounts[0], contract: petPoll, instance: instance})
       })
     })
   }
@@ -63,13 +56,9 @@ class App extends Component {
     return (
       <div className="App">
         <TopBar/>
-
-        <main className="container">
-          <div className="pure-g">
-            <div className="pure-u-1-1">
-            </div>
-          </div>
-        </main>
+        {/* <div className="container">
+          <Form/>
+        </div> */}
       </div>
     );
   }
