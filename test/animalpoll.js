@@ -25,4 +25,16 @@ contract("AnimalPoll", function(accounts) {
       assert.equal(animal[2], "Cat", "contains the correct name");
     });
   });
+
+  it("allows a user to vote for an animal", function() {
+    return AnimalPoll.deployed().then(function(instance) {
+      animalPollInstance = instance;
+      animalId = 1;
+      return animalPollInstance.vote(animalId, { from: accounts[0] });
+    }).then(function(result) {
+       assert.equal(result.logs.length, 1, "an event was triggered");
+       assert.equal(result.logs[0].event, "VotedOnAnimal", "the event type is correct");
+       assert.equal(result.logs[0].args._animalId.toNumber(), animalId, "the animal ID is correct");
+    })
+  })
 });
