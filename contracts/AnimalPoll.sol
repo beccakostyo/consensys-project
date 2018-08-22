@@ -6,7 +6,7 @@ pragma solidity ^0.4.24;
 contract AnimalPoll {
 
     uint public animalsCount;
-    address[] public voters;
+    mapping(address => bool) public voters;
     mapping(uint => Animal) public animals;
     
     // Model for each animal
@@ -41,7 +41,7 @@ contract AnimalPoll {
     **/
     /// @param _animalId The animal being voted for
     function vote(uint _animalId) public {
-        require(!alreadyVoted(msg.sender), "You've already voted for an animal.");
+        require(!voters[msg.sender], "You've already voted for an animal.");
         require(_animalId > 0 && _animalId <= animalsCount, "You must vote for a valid animal.");
 
         voters.push(msg.sender);
