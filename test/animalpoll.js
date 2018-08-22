@@ -35,6 +35,17 @@ contract("AnimalPoll", function(accounts) {
        assert.equal(result.logs.length, 1, "an event was triggered");
        assert.equal(result.logs[0].event, "VotedOnAnimal", "the event type is correct");
        assert.equal(result.logs[0].args._animalId.toNumber(), animalId, "the animal ID is correct");
+       return animalPollInstance.voters(accounts[0]);
+    }).then(function(voted) {
+      assert(voted, "the voter was marked as voted = true");
+      return animalPollInstance.animals(animalId);
+    }).then(function(animal) {
+      var voteCount = animal[1];
+      assert.equal(voteCount, 1, "increments the animal's vote count by one")
     })
-  })
+  });
+
+
+
+
 });
