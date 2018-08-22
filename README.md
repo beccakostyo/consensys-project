@@ -1,4 +1,4 @@
-# Animal Poll
+# Pet Poll
 
 This app presents a user with choices for different animals from which they are asked to choose one. It then records different users' poll choices and displays the "winning" animal. 
 
@@ -31,4 +31,5 @@ The things you need to install to run this project on your local machine.
 
 ## Running Tests
 
-1. In project folder, run ```truffle test``` in terminal to execute unit tests. 
+1. cd into project folder, run ```truffle test``` in terminal to execute unit tests. 
+   - Output will show in terminal

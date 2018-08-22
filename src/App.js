@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import AnimalPollContract from '../build/contracts/AnimalPoll.json'
+import PetPollContract from '../build/contracts/PetPoll.json'
 import getWeb3 from './utils/getWeb3'
 
-import './css/oswald.css'
-import './css/open-sans.css'
-import './css/pure-min.css'
-import './App.css'
+// Component imports //
+import TopBar from './components/TopBar/TopBar';
+
+// import './css/oswald.css'
+// import './css/open-sans.css'
+// import './css/pure-min.css'
+// import './App.css'
 
 class App extends Component {
   constructor(props) {
@@ -13,20 +16,21 @@ class App extends Component {
 
     this.state = {
       storageValue: 0,
-      web3: null
+      web3: null,
+      account: '0x0',
+      animals: [],
+      playerVoted: false,
+      loading: true,
+      voting: false
     }
   }
 
   componentWillMount() {
-    // Get network provider and web3 instance.
-    // See utils/getWeb3 for more info.
-
     getWeb3
     .then(results => {
       this.setState({
         web3: results.web3
       })
-
       // Instantiate contract once web3 provided.
       this.instantiateContract()
     })
@@ -36,32 +40,20 @@ class App extends Component {
   }
 
   instantiateContract() {
-    /*
-     * SMART CONTRACT EXAMPLE
-     *
-     * Normally these functions would be called in the context of a
-     * state management library, but for convenience I've placed them here.
-     */
-
     const contract = require('truffle-contract')
-    const animalPoll = contract(AnimalPollContract)
-    animalPoll.setProvider(this.state.web3.currentProvider)
+    const petPoll = contract(PetPollContract)
+    petPoll.setProvider(this.state.web3.currentProvider)
 
-    // Declaring this for later so we can chain functions on SimpleStorage.
-    var animalPollInstance
+    var petPollInstance
 
-    // Get accounts.
     this.state.web3.eth.getAccounts((error, accounts) => {
-      animalPoll.deployed().then((instance) => {
-        animalPollInstance = instance
+      petPoll.deployed().then((instance) => {
+        petPollInstance = instance
 
-        // Stores a given value, 5 by default.
-        return animalPollInstance.set(5, {from: accounts[0]})
+        return petPollInstance.set(5, {from: accounts[0]})
       }).then((result) => {
-        // Get the value from the contract to prove it worked.
-        return animalPollInstance.get.call(accounts[0])
+        return petPollInstance.get.call(accounts[0])
       }).then((result) => {
-        // Update state with the result.
         return this.setState({ storageValue: result.c[0] })
       })
     })
@@ -70,19 +62,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <nav className="navbar pure-menu pure-menu-horizontal">
-            <a href="#" className="pure-menu-heading pure-menu-link">Truffle Box</a>
-        </nav>
+        <TopBar/>
 
         <main className="container">
           <div className="pure-g">
             <div className="pure-u-1-1">
-              <h1>Good to Go!</h1>
-              <p>Your Truffle Box is installed and ready.</p>
-              <h2>Smart Contract Example</h2>
-              <p>If your contracts compiled and migrated successfully, below will show a stored value of 5 (by default).</p>
-              <p>Try changing the value stored on <strong>line 59</strong> of App.js.</p>
-              <p>The stored value is: {this.state.storageValue}</p>
             </div>
           </div>
         </main>

@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 /// @title Animal Poll
 /// @author Becca Kostyo
 /// @notice Simple contract that allows users to vote on their preferred animal from a dropdown list
-contract AnimalPoll {
+contract PetPoll {
 
     uint public animalsCount;
     mapping(address => bool) public voters;

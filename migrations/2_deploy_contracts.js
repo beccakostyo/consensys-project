@@ -1,5 +1,5 @@
-var AnimalPoll = artifacts.require("./AnimalPoll.sol");
+var PetPoll = artifacts.require("./PetPoll.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(AnimalPoll);
+  deployer.deploy(PetPoll);
 };
