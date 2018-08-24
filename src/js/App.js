@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import Web3 from 'web3'
 import TruffleContract from 'truffle-contract'
-import PetPoll from '../build/contracts/PetPoll.json'
-import Content from './components/Content/Content'
-import TopBar from './components/TopBar/TopBar'
+import PetPoll from '../../build/contracts/PetPoll.json'
+import Content from './Content'
+import 'bootstrap/dist/css/bootstrap.css'
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -15,15 +16,14 @@ class App extends Component {
       loading: true,
       voting: false,
     }
-    var web3;
-    if (typeof web3 !== 'undefined') {
+
+    if (typeof web3 != 'undefined') {
       this.web3Provider = web3.currentProvider
     } else {
       this.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545')
     }
 
     this.web3 = new Web3(this.web3Provider)
-
     this.petPoll = TruffleContract(PetPoll)
     this.petPoll.setProvider(this.web3Provider)
 
@@ -32,7 +32,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // TODO: Refactor with promise chain
     this.web3.eth.getCoinbase((err, account) => {
       this.setState({ account })
       this.petPoll.deployed().then((petPollInstance) => {
@@ -44,8 +43,8 @@ class App extends Component {
               const animals = [...this.state.animals]
               animals.push({
                 id: animal[0],
-                voteCount: animal[1],
-                name: animal[2],
+                name: animal[1],
+                voteCount: animal[2]
               });
               this.setState({ animals: animals })
             });
@@ -59,8 +58,7 @@ class App extends Component {
   }
 
   watchEvents() {
-    // TODO: trigger event when vote is counted, not when component renders
-    this.petPollInstance.VotedOnAnimal({}, {
+    this.petPollInstance.votedEvent({}, {
       fromBlock: 0,
       toBlock: 'latest'
     }).watch((error, event) => {
@@ -77,24 +75,25 @@ class App extends Component {
 
   render() {
     return (
-      <div className="app">
-      <TopBar/>
-        <div className='row'>
-          <div className='col-lg-12 text-center' >
-            <br />
-            {this.state.loading || this.state.voting
-              ? <p className='text-center'>Loading...</p>
-              : <Content
+      <div class='row'>
+        <div class='col-lg-12 text-center' >
+          <h1>Poll Results</h1>
+          <br/>
+          { this.state.loading || this.state.voting
+            ? <p class='text-center'>Loading...</p>
+            : <Content
                 account={this.state.account}
                 animals={this.state.animals}
                 hasVoted={this.state.hasVoted}
                 castVote={this.castVote} />
-            }
-          </div>
+          }
         </div>
       </div>
     )
   }
 }
 
-export default App
+ReactDOM.render(
+   <App />,
+   document.querySelector('#root')
+)
