@@ -24,12 +24,22 @@ The things you need to install to run this project on your local machine.
    - ```ganache-cli```
 4. Open a new terminal tab, cd into project folder, then run:
    - ```npm install```
+   - ```npm install -g webpack webpack-cli```
    - ```truffle compile```
    - ```truffle migrate```
    - ```npm run start```
-     - This will start up the front-end on http://localhost:3000. (should auto-open on running the command) 
+     - This will start up the front-end on http://localhost:8080. (should auto-open on running the command) 
 
 ## Running Tests
 
 1. cd into project folder, run ```truffle test``` in terminal to execute unit tests. 
    - Output will show in terminal
+
+## Troubleshooting & UI Testing
+In console, running ```truffle migrate --reset`` will reset the game back to its original state. 
+
+Testing Guidance:
+* May take a minute to load when first starting the app (the picture seems to slow it down)
+* An account can only vote for an animal one time, so after selecting an animal and clicking the vote button the first time, the page should refresh and the dropdown/vote button should no longer be there. 
+* After voting, refresh the page to see the vote count change reflected in the table
+* Add more accounts in MetaMask to vote multiple times. 

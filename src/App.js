@@ -1,9 +1,9 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import Web3 from 'web3'
 import TruffleContract from 'truffle-contract'
-import PetPoll from '../../build/contracts/PetPoll.json'
-import Content from './Content'
+import PetPoll from '../build/contracts/PetPoll.json'
+import Content from './components/Content/Content'
+import TopBar from './components/TopBar/TopBar'
 import 'bootstrap/dist/css/bootstrap.css'
 
 class App extends React.Component {
@@ -75,9 +75,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div class='row'>
-        <div class='col-lg-12 text-center' >
-          <h1>Poll Results</h1>
+      <div className="app">
+        <TopBar/>
+        <div className='col-lg-12 text-center' >
           <br/>
           { this.state.loading || this.state.voting
             ? <p class='text-center'>Loading...</p>
@@ -93,7 +93,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(
-   <App />,
-   document.querySelector('#root')
-)
+export default App;

@@ -1,0 +1,7 @@
+form {
+  font-family: 'Bree Serif', serif;
+  margin-bottom: 40px;
+}
+label, button, option, select {
+  font-size: 1.7rem
+}

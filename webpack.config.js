@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  entry: path.join(__dirname, 'src/js', 'App.js'),
+  entry: path.join(__dirname, 'src/', 'index.js'),
   devServer: {
     contentBase: path.join(__dirname, 'src'),
   },
@@ -25,6 +25,18 @@ module.exports = {
         test: /\.json$/,
         loader: 'json-loader',
         include: '/build/contracts/'
+      }, {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
+            },
+          },
+        ],
       }
     ]
   }

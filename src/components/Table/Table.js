@@ -1,10 +1,11 @@
 import React from 'react'
+import "./Table.css"
 
 class Table extends React.Component {
   render() {
     return (
-      <table class='table'>
-        <thead>
+      <table className='table table-striped'>
+        <thead className="thead-dark">
           <tr>
             <th>#</th>
             <th>Name</th>
@@ -15,7 +16,7 @@ class Table extends React.Component {
           {this.props.animals.map((animal) => {
             return(
               <tr>
-                <th>{animal.id.toNumber()}</th>
+                <td>{animal.id.toNumber()}</td>
                 <td>{animal.name}</td>
                 <td>{animal.voteCount.toNumber()}</td>
               </tr>
