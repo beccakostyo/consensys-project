@@ -1,10 +1,11 @@
 pragma solidity ^0.4.24;
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 /// @title Animal Poll
 /// @author Becca Kostyo
 /// @notice Simple contract that allows users to vote on their preferred animal from a dropdown list
 
-contract PetPoll {
+contract PetPoll is Ownable {
 
     // Model for each animal
     struct Animal {
@@ -58,13 +59,13 @@ contract PetPoll {
     }
 
     /// @dev Self Destruct Contract
-    function kill() private {
+    function kill() private onlyOwner() {
         selfdestruct(owner);
     }
 
     /// @notice Admin function to stop certain functions in an emergency
     /// @dev Circuit breaker that allows contract functionality to be stopped
-    function circuitBreaker(bool _stopped) external{
+    function circuitBreaker(bool _stopped) external onlyOwner() {
         stopped = _stopped;
     }
 
