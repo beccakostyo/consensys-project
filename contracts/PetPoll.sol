@@ -37,7 +37,7 @@ contract PetPoll is Ownable {
 
     /// @notice Create a new animal
     /// @param _name The new animal's name
-    function _addAnimal(string _name) private {
+    function _addAnimal(string _name) private onlyOwner() {
         animalsCount ++;
         animals[animalsCount] = Animal(animalsCount, _name, 0);
     }
