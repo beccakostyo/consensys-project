@@ -16,6 +16,9 @@ contract PetPoll {
     mapping(address => bool) public voters;
     mapping(uint => Animal) public animals;
     uint public animalsCount;
+    bool public stopped;
+    address owner;
+
 
     /// @notice Notify when a user has voted on an animal
     event votedEvent (
@@ -28,6 +31,7 @@ contract PetPoll {
         _addAnimal("Cat");
         _addAnimal("Bird");
         _addAnimal("Fish");
+        stopped = false;
     }
 
     /// @notice Create a new animal
@@ -52,4 +56,16 @@ contract PetPoll {
         animals[_animalId].voteCount ++;
         emit votedEvent(_animalId);
     }
+
+    /// @dev Self Destruct Contract
+    function kill() private {
+        selfdestruct(owner);
+    }
+
+    /// @notice Admin function to stop certain functions in an emergency
+    /// @dev Circuit breaker that allows contract functionality to be stopped
+    function circuitBreaker(bool _stopped) external{
+        stopped = _stopped;
+    }
+
 }

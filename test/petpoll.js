@@ -3,7 +3,10 @@ var PetPoll = artifacts.require("./PetPoll.sol");
 contract("PetPoll", function (accounts) {
   var petPollInstance;
 
-  it("initializes with two animals", function () {
+  /* Makes sure constructor/_addAnimal function in the contract works correctly
+     Checks that, upon starting the app, users are given four animals to choose from
+  */ 
+  it("initializes with four animals", function () {
     return PetPoll.deployed().then(function (instance) {
       return instance.animalsCount();
     }).then(function (count) {
@@ -11,6 +14,7 @@ contract("PetPoll", function (accounts) {
     });
   });
 
+  // Checks that the animals that are added as choices are all initialized with the correct values 
   it("it initializes the animals with the correct values", function () {
     return PetPoll.deployed().then(function (instance) {
       petPollInstance = instance;
@@ -37,6 +41,7 @@ contract("PetPoll", function (accounts) {
     });
   })
 
+  // Checks that the vote function works correctly
   it("allows a voter to cast a vote", function () {
     return PetPoll.deployed().then(function (instance) {
       petPollInstance = instance;
@@ -56,6 +61,7 @@ contract("PetPoll", function (accounts) {
     })
   });
 
+  // Checks that the user can only vote for animals from the dropdown
   it("throws an exception for invalid animals", function () {
     return PetPoll.deployed().then(function (instance) {
       petPollInstance = instance;
@@ -81,6 +87,8 @@ contract("PetPoll", function (accounts) {
     });
   });
 
+  // Checks that a user can only vote one time per account
+  // Makes sure that the account address is added to the "voters" mapping after voting.
   it("throws an exception for double voting", function () {
     return PetPoll.deployed().then(function (instance) {
       petPollInstance = instance;
