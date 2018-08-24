@@ -34,7 +34,7 @@ The things you need to install to run this project on your local machine.
    - Output will show in terminal
 
 ## Troubleshooting & UI Testing
-In console, running ```truffle migrate --reset`` will reset the game back to its original state. 
+In console, running ```truffle migrate --reset``` will reset the game back to its original state. 
 
 <strong>Testing Guidance:</strong>
 * May take a minute to load when first starting the app (the picture seems to slow it down)
