@@ -37,7 +37,7 @@ The things you need to install to run this project on your local machine.
 In console, running ```truffle migrate --reset``` will reset the game back to its original state. 
 
 <strong>Testing Guidance:</strong>
-* May take a minute to load when first starting the app (the picture seems to slow it down)
+* May take a minute to load when first starting the app
 * An account can only vote for an animal one time, so after selecting an animal and clicking the vote button the first time, the page should refresh and the dropdown/vote button should no longer be there. 
-* After voting, refresh the page to see the vote count change reflected in the table
+* After voting, <strong>refresh the page to see the vote count change reflected in the table</strong>
 * Add more accounts in MetaMask to vote multiple times. 
